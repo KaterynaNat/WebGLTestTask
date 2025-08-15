@@ -14,6 +14,10 @@ float median(float r, float g, float b) {
 void main() {
     vec3 sample = texture2D(u_texture, v_texcoord).rgb;
     float sd = median(sample.r, sample.g, sample.b) - 0.5;
-    float alpha = smoothstep(-0.02, 0.02, sd);
+
+    float alpha = smoothstep(-0.015, 0.015, sd);
+
+    if (alpha < 0.01) discard;
+
     gl_FragColor = vec4(v_color, alpha);
 }

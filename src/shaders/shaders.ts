@@ -20,6 +20,6 @@ export const fragmentShaderSrc = `
 
   void main() {
     float alpha = 1.0 - (v_position.y / u_height);
-    gl_FragColor = vec4(0.5, 0.2, 1.0, alpha * 0.6); // фіолетовий до прозорого
+    gl_FragColor = vec4(0.5, 0.2, 1.0, alpha * 0.6);
   }
 `;

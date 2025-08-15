@@ -1,15 +1,19 @@
+#ifdef GL_ES
 precision mediump float;
+#endif
+
+varying vec2 v_texcoord;
+varying vec3 v_color;
 
 uniform sampler2D u_texture;
-varying vec2 v_texcoord;
 
 float median(float r, float g, float b) {
-  return max(min(r, g), min(max(r, g), b));
+    return max(min(r, g), min(max(r, g), b));
 }
 
 void main() {
-  vec3 sample = texture2D(u_texture, v_texcoord).rgb;
-  float sdf = median(sample.r, sample.g, sample.b);
-  float alpha = smoothstep(0.5 - 0.1, 0.5 + 0.1, sdf);
-  gl_FragColor = vec4(vec3(0.0, 0.0, 0.0), alpha);
+    vec3 sample = texture2D(u_texture, v_texcoord).rgb;
+    float sd = median(sample.r, sample.g, sample.b) - 0.5;
+    float alpha = smoothstep(-0.02, 0.02, sd);
+    gl_FragColor = vec4(v_color, alpha);
 }
